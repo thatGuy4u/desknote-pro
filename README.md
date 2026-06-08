@@ -130,10 +130,10 @@ win.setVisibleOnAllWorkspaces(true)
 ```
 
 This means notes:
-- ✅ Survive three-finger swipe gestures
-- ✅ Survive Mission Control (macOS)
-- ✅ Survive virtual desktop switching (all platforms)
-- ✅ Persist after restart (restored from SQLite on boot)
+-  Survive three-finger swipe gestures
+-  Survive Mission Control (macOS)
+-  Survive virtual desktop switching (all platforms)
+-  Persist after restart (restored from SQLite on boot)
 
 ### IPC Architecture
 
