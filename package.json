@@ -1,0 +1,117 @@
+{
+  "name": "desknote-pro",
+  "version": "1.0.0",
+  "description": "Premium Sticky Notes & Reminder Desktop App",
+  "main": "dist/main/main.js",
+  "homepage": "./",
+  "author": "DeskNote Pro",
+  "license": "MIT",
+  "scripts": {
+    "predev": "tsc -p tsconfig.main.json",
+    "dev": "concurrently -k -n renderer,main,electron -c blue,yellow,green \"npm:dev:renderer\" \"npm:dev:main\" \"npm:dev:electron\"",
+    "dev:renderer": "vite",
+    "dev:main": "tsc -p tsconfig.main.json --watch --preserveWatchOutput",
+    "dev:electron": "wait-on http://localhost:5173 dist/main/main.js && electron .",
+    "dev:web": "vite",
+    "build": "npm run build:renderer && npm run build:main",
+    "build:renderer": "vite build",
+    "build:main": "tsc -p tsconfig.main.json",
+    "electron": "electron .",
+    "electron:dev": "npm run dev:electron",
+    "rebuild:native": "node scripts/rebuild.js",
+    "setup": "npm install && npm run rebuild:native",
+    "start": "npm run build && electron .",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.1.7",
+    "koffi": "^2.16.2",
+    "node-schedule": "^2.1.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.7.2",
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.11.5",
+    "@types/node-schedule": "^2.1.7",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@types/uuid": "^9.0.7",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "framer-motion": "^11.0.3",
+    "postcss": "^8.4.33",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vite-plugin-electron": "^0.28.4",
+    "wait-on": "^7.2.0",
+    "zustand": "^4.5.0"
+  },
+  "build": {
+    "appId": "com.desknote.pro",
+    "productName": "DeskNote Pro",
+    "icon": "public/icon.png",
+    "files": [
+      "dist/**/*",
+      "public/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "public",
+        "to": "public",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "public/icon.png",
+      "hardenedRuntime": true,
+      "entitlements": "scripts/entitlements.mac.plist",
+      "entitlementsInherit": "scripts/entitlements.mac.plist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "public/icon.png"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "public/icon.png",
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DeskNote Pro",
+      "installerIcon": "public/icon.png",
+      "uninstallerIcon": "public/icon.png"
+    }
+  }
+}
