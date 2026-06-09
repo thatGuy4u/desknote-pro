@@ -3,6 +3,17 @@
 > Premium Sticky Notes & Reminder Desktop App — Electron + React + TypeScript
 
 ---
+## Home Screen
+
+![Home Screen- Dark mode](screenshots/dark-mode-homescreen.png)
+![Home Screen- Light mode](screenshots/light-mode-homescreen.png)
+
+### Notes View
+![Notes View](screenshots/sticky-notes.png)
+
+## Demo
+
+![DeskNote Demo](screenshots/demo.gif)
 
 ## ✨ Features
 
