@@ -5,7 +5,7 @@
   "main": "dist/main/main.js",
   "homepage": "./",
   "author": "DeskNote Pro",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "scripts": {
     "predev": "tsc -p tsconfig.main.json",
     "dev": "concurrently -k -n renderer,main,electron -c blue,yellow,green \"npm:dev:renderer\" \"npm:dev:main\" \"npm:dev:electron\"",

@@ -228,4 +228,8 @@ Place your icons in the `public/` folder:
 
 ## 📄 License
 
-MIT © DeskNote Pro
+This project is proprietary software.
+
+All Rights Reserved.
+
+The source code is provided for viewing purposes only and may not be copied, modified, redistributed, or used in derivative works without explicit written permission from the author.
