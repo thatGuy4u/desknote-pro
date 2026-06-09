@@ -4,7 +4,7 @@ import { getPublicPath } from './paths'
 let tray: Tray | null = null
 
 export function setupTray(mainWindow: BrowserWindow) {
-  const icon = nativeImage.createFromPath(getPublicPath('tray-icon.png'))
+  const icon = nativeImage.createFromPath(getPublicPath('tray-icon.ico'))
 
   // Resize for tray
   const trayIcon = icon.isEmpty()

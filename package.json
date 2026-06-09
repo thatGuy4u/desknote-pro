@@ -59,9 +59,9 @@
     "zustand": "^4.5.0"
   },
   "build": {
-    "appId": "com.desknote.pro",
+    "appId": "com.aman.desknote.pro",
     "productName": "DeskNote Pro",
-    "icon": "public/icon.png",
+    "icon": "public/icon.ico",
     "files": [
       "dist/**/*",
       "public/**/*"
@@ -84,7 +84,7 @@
         "dmg",
         "zip"
       ],
-      "icon": "public/icon.png",
+      "icon": "public/icon.ico",
       "hardenedRuntime": true,
       "entitlements": "scripts/entitlements.mac.plist",
       "entitlementsInherit": "scripts/entitlements.mac.plist"
@@ -94,7 +94,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "public/icon.png"
+      "icon": "public/icon.ico"
     },
     "linux": {
       "target": [
@@ -102,7 +102,8 @@
         "deb"
       ],
       "icon": "public/icon.png",
-      "category": "Utility"
+      "category": "Utility",
+      "artifactName": "DeskNote-Pro-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -110,8 +111,8 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "DeskNote Pro",
-      "installerIcon": "public/icon.png",
-      "uninstallerIcon": "public/icon.png"
+      "installerIcon": "public/icon.ico",
+      "uninstallerIcon": "public/icon.ico"
     }
   }
 }
