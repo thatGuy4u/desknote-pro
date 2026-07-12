@@ -60,6 +60,7 @@ export interface AppSettings {
   launchAtStartup: boolean
   startMinimized: boolean
   globalShortcut: string
+  globalShortcutEnabled: boolean
   defaultOpacity: number
   defaultColor: NoteColor
   defaultDesktopMode: DesktopMode

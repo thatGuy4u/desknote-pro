@@ -17,11 +17,13 @@ interface Services {
 export function setupIpcHandlers(services: Services) {
   const { db, settings, reminderEngine, noteWindowManager, mainWindow } = services
 
-  function registerQuickCaptureShortcut(shortcut: string) {
+  function registerQuickCaptureShortcut(shortcut: string, enabled: boolean) {
     globalShortcut.unregisterAll()
-    globalShortcut.register(shortcut || 'CommandOrControl+Shift+N', () => {
-      noteWindowManager.createQuickCapture()
-    })
+    if (enabled) {
+      globalShortcut.register(shortcut || 'CommandOrControl+Shift+N', () => {
+        noteWindowManager.createQuickCapture()
+      })
+    }
   }
 
   function syncDesktopWindow(note: Note, mode?: DesktopMode) {
@@ -103,8 +105,8 @@ export function setupIpcHandlers(services: Services) {
     if ('launchAtStartup' in patch) {
       app.setLoginItemSettings({ openAtLogin: patch.launchAtStartup! })
     }
-    if ('globalShortcut' in patch) {
-      registerQuickCaptureShortcut(updated.globalShortcut)
+    if ('globalShortcut' in patch || 'globalShortcutEnabled' in patch) {
+      registerQuickCaptureShortcut(updated.globalShortcut, updated.globalShortcutEnabled)
     }
     return updated
   })

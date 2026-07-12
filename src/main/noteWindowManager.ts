@@ -54,6 +54,8 @@ export class NoteWindowManager {
   private windows = new Map<string, BrowserWindow>()
   /** Full note payloads waiting for the floating window renderer to pick up. */
   private bootstrapNotes = new Map<string, Note>()
+  /** Counter for offsetting quick capture windows so they don't overlap. */
+  private quickCaptureCounter = 0
 
   consumeBootstrapNote(id: string): Note | null {
     const note = this.bootstrapNotes.get(id) ?? null
@@ -203,12 +205,30 @@ export class NoteWindowManager {
   }
 
   createQuickCapture() {
-    const { width: sw } = screen.getPrimaryDisplay().workAreaSize
+    const { width: sw, height: sh } = screen.getPrimaryDisplay().workAreaSize
+    const baseX = sw - 340
+    const baseY = 80
+    const offset = this.quickCaptureCounter * 30
+
+    // Reset counter if the note would go too far off screen
+    const noteW = 320
+    const noteH = 240
+    const x = baseX - offset
+    const y = baseY + offset
+
+    if (x < 0 || y + noteH > sh) {
+      this.quickCaptureCounter = 0
+    }
+
+    const finalX = baseX - (this.quickCaptureCounter * 30)
+    const finalY = baseY + (this.quickCaptureCounter * 30)
+    this.quickCaptureCounter++
+
     const win = new BrowserWindow({
-      x: sw - 340,
-      y: 80,
-      width: 320,
-      height: 240,
+      x: finalX,
+      y: finalY,
+      width: noteW,
+      height: noteH,
       frame: false,
       transparent: true,
       alwaysOnTop: true,

@@ -13,6 +13,30 @@ function Toggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
   )
 }
 
+function Section({ title, icon, children }: { title: string; icon: string; children: React.ReactNode }) {
+  return (
+    <div className="bg-[var(--bg-3)] border border-[var(--border)] rounded-2xl overflow-hidden mb-4">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)] bg-[var(--surface)]">
+        <i className={`ti ${icon} text-[var(--accent)]`} />
+        <span className="text-sm font-semibold text-[var(--text-1)]">{title}</span>
+      </div>
+      <div className="divide-y divide-[var(--border)]">{children}</div>
+    </div>
+  )
+}
+
+function Row({ label, desc, children }: { label: string; desc?: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between px-4 py-3 gap-4">
+      <div className="min-w-0">
+        <div className="text-sm font-medium text-[var(--text-1)]">{label}</div>
+        {desc && <div className="text-xs text-[var(--text-3)] mt-0.5">{desc}</div>}
+      </div>
+      <div className="shrink-0">{children}</div>
+    </div>
+  )
+}
+
 export default function SettingsView() {
   const { settings, setSettings } = useStore()
   const [saved, setSaved] = useState(false)
@@ -35,26 +59,6 @@ export default function SettingsView() {
     else root.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches)
     update({ theme })
   }
-
-  const Section = ({ title, icon, children }: { title: string; icon: string; children: React.ReactNode }) => (
-    <div className="bg-[var(--bg-3)] border border-[var(--border)] rounded-2xl overflow-hidden mb-4">
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)] bg-[var(--surface)]">
-        <i className={`ti ${icon} text-[var(--accent)]`} />
-        <span className="text-sm font-semibold text-[var(--text-1)]">{title}</span>
-      </div>
-      <div className="divide-y divide-[var(--border)]">{children}</div>
-    </div>
-  )
-
-  const Row = ({ label, desc, children }: { label: string; desc?: string; children: React.ReactNode }) => (
-    <div className="flex items-center justify-between px-4 py-3 gap-4">
-      <div className="min-w-0">
-        <div className="text-sm font-medium text-[var(--text-1)]">{label}</div>
-        {desc && <div className="text-xs text-[var(--text-3)] mt-0.5">{desc}</div>}
-      </div>
-      <div className="shrink-0">{children}</div>
-    </div>
-  )
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
@@ -177,8 +181,11 @@ export default function SettingsView() {
           <Row label="Start Minimized" desc="Launch directly to system tray">
             <Toggle on={settings.startMinimized} onToggle={() => update({ startMinimized: !settings.startMinimized })} />
           </Row>
-          <Row label="Global Shortcut" desc="Quick capture new note">
-            <kbd className="text-[11px] bg-[var(--bg-4)] border border-[var(--border-2)] rounded px-2 py-0.5 font-mono text-[var(--accent)]">
+          <Row label="Global Shortcut" desc="Enable Ctrl+Shift+N to quick capture a new note">
+            <Toggle on={settings.globalShortcutEnabled} onToggle={() => update({ globalShortcutEnabled: !settings.globalShortcutEnabled })} />
+          </Row>
+          <Row label="Shortcut Key" desc="Current quick capture shortcut">
+            <kbd className={`text-[11px] bg-[var(--bg-4)] border border-[var(--border-2)] rounded px-2 py-0.5 font-mono transition-opacity ${settings.globalShortcutEnabled ? 'text-[var(--accent)]' : 'text-[var(--text-3)] opacity-40'}`}>
               {settings.globalShortcut.replace('CommandOrControl', '⌃').replace('+', ' + ')}
             </kbd>
           </Row>
@@ -209,10 +216,8 @@ export default function SettingsView() {
 
         {/* About */}
         <div className="bg-gradient-to-br from-[var(--accent)]/10 to-[#60a5fa]/10 border border-[var(--accent)]/20 rounded-2xl p-4 text-center">
-          <div className="text-2xl mb-2">📌</div>
           <div className="text-sm font-semibold text-[var(--text-1)]">DeskNote Pro</div>
-          <div className="text-xs text-[var(--text-3)] mt-1">Version 1.0.0 · Production</div>
-          <div className="text-[11px] text-[var(--accent)] mt-2">Built with Electron · React · TypeScript</div>
+          <div className="text-[10px] text-[var(--text-3)] mt-3 pt-3 border-t border-[var(--border)]">© AMAN. All rights reserved.</div>
         </div>
       </div>
     </div>

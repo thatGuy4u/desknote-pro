@@ -25,5 +25,11 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: true,
+    fs: {
+      allow: [
+        // Allow access to the project root so @shared alias can resolve src/shared
+        path.resolve(__dirname),
+      ],
+    },
   },
 })

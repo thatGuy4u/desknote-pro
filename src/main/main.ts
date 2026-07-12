@@ -51,10 +51,12 @@ app.whenReady().then(async () => {
   setupTray(mainWindow!)
   setupIpcHandlers({ db, settings, reminderEngine, noteWindowManager, mainWindow: mainWindow! })
 
-  // Register global shortcut: Ctrl+Shift+N → quick capture
-  globalShortcut.register(appSettings.globalShortcut || 'CommandOrControl+Shift+N', () => {
-    noteWindowManager.createQuickCapture()
-  })
+  // Register global shortcut: Ctrl+Shift+N → quick capture (if enabled)
+  if (appSettings.globalShortcutEnabled) {
+    globalShortcut.register(appSettings.globalShortcut || 'CommandOrControl+Shift+N', () => {
+      noteWindowManager.createQuickCapture()
+    })
+  }
 
   // Restore pinned notes
   if (appSettings.restorePinnedOnBoot) {
@@ -101,7 +103,7 @@ function createMainWindow() {
     titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
     icon: appIcon,
     backgroundColor: '#0a0e1a',
-    show: false,
+    show: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,

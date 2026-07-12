@@ -59,13 +59,22 @@ export default function NoteEditor() {
   async function save() {
     const now = new Date().toISOString()
     const base = useStore.getState().settings
+
+    // Compute a unique position for new notes to avoid overlap
+    let position = existingNote?.position ?? { x: 100, y: 100 }
+    if (!existingNote) {
+      const existingNotes = useStore.getState().notes
+      const offset = existingNotes.length % 15 // cycle after 15 steps
+      position = { x: 100 + offset * 30, y: 100 + offset * 30 }
+    }
+
     const noteData = {
       title: title || 'Untitled',
       body, color, type: noteType, checklist,
       pinned: existingNote?.pinned ?? false,
       favorite, locked, archived: false,
       opacity, desktopMode,
-      position: existingNote?.position ?? { x: 100, y: 100 },
+      position,
       size: existingNote?.size ?? { width: 280, height: 200 },
     }
 

@@ -120,7 +120,7 @@ export default function Sidebar() {
         <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[var(--surface)] border border-[var(--border)] text-xs text-[var(--text-2)]">
           <span className="w-2 h-2 rounded-full bg-green-400 pulse" />
           <span>Running in Tray</span>
-          <span className="ml-auto font-mono text-[10px] text-[var(--text-3)]">v1.0</span>
+          <span className="ml-auto font-mono text-[10px] text-[var(--text-3)]">v1.1.0</span>
         </div>
       </div>
     </aside>
