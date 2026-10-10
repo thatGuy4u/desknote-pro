@@ -23,7 +23,6 @@ const RENDERER_URL = isDev ? 'http://localhost:5173' : path.join(__dirname, '../
 
 if (!app.requestSingleInstanceLock()) {
   app.quit()
-  process.exit(0)
 }
 
 app.on('second-instance', () => {

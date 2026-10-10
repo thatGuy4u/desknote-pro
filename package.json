@@ -1,6 +1,6 @@
 {
   "name": "desknote-pro",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Premium Sticky Notes & Reminder Desktop App",
   "main": "dist/main/main.js",
   "homepage": "./",
